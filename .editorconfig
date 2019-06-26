@@ -1,0 +1,13 @@
+root = true
+
+# 给所有文件指定规范  
+[*]
+charset = utf-8
+end_of_lint = lf
+# tab是两个空格
+indent_size = 2
+indent_style = space
+# 会自动给文件末尾加入一个空行
+insert_final_newline = true
+# 在写代码时，一行的末尾可能有空格，这行配置会自动去掉末尾的空格
+trim_trailing_whitespace = true
