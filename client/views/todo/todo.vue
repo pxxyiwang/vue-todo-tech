@@ -64,6 +64,14 @@ export default {
     clearAllCompleted () {
       this.todos = this.todos.filter(todo => !todo.completed)
     }
+  },
+  created () {
+    this.$http.get('http://lays.dev.com/super/user').then(
+      response => {
+        console.log(response)
+      },
+      response => {}
+    )
   }
 }
 </script>
