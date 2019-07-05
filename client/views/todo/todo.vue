@@ -19,6 +19,7 @@
       @toggle="toggleFilter"
       @clearAllCompleted="clearAllCompleted"
     />
+    <router-view></router-view>
   </section>
 </template>
 
@@ -27,11 +28,36 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+  // 在组件渲染之前执行，所有这里拿不到组件的全局上下文（this）。在beforeEach和beforeResolve之间执行
+  beforeRouteEnter (to, from, next) {
+    console.log('todo before enter', this)
+    // 但是可以通过next()拿到组件的参数，在next里面写入一个回调函数，可以获取组件创建后的对象。
+    next(vm => {
+      console.log('after enter vm.id is', vm.id)
+    })
+  },
+  // 在同一个路由下，路径发生变化时触发，如，同一路由下，通过不同的参数跳转页面时，会触发。
+  beforeRouteUpdate (to, from, next) {
+    console.log('todi update enter')
+    next()
+  },
+  // 在离开页面时触发(在离开页面行为的一些判断，例如，页面有表单数据被修改但是没有保存，用户就点击其他路由路径，这是可以在用户离开前，提示用户)
+  beforeRouteLeave (to, from, next) {
+    console.log('todo leave enter')
+    if (global.confirm('are you sure?')) {
+      next()
+    }
+  },
+  props: ['id'],
   data () {
     return {
       todos: [],
       filter: 'all'
     }
+  },
+  // 在组件跳转的时候，跳转的是同一组件的情况下，mounted方法方法是不会从新执行的，如果要监听数据的变化，只能通过watch或者boeforeRouteUpdate监听。（例如：通过/app/：id这样的方法的组件）
+  mounted () {
+    console.log('todo mounted')
   },
   components: {
     Item,

@@ -7,14 +7,14 @@ const baseConfig = require('./webpack.config.base')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const defaultPluins = [
+const defaultPlugins = [
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: isDev ? '"development"' : '"production"'
     }
   }),
   new HTMLPlugin({
-    template: path.join(__dirname, 'template.html')
+    template: path.join(__dirname, './template.html')
   })
 ]
 
@@ -23,6 +23,9 @@ const devServer = {
   host: '0.0.0.0',
   overlay: {
     errors: true
+  },
+  historyApiFallback: {
+    index: '/public/index.html'
   },
   hot: true
 }
@@ -51,7 +54,7 @@ if (isDev) {
     // eslint-disable-next-line no-dupe-keys
     devtool: '#cheap-module-eval-source-map',
     devServer,
-    plugins: defaultPluins.concat([
+    plugins: defaultPlugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
     ])
@@ -63,7 +66,7 @@ if (isDev) {
       vendor: ['vue']
     },
     output: {
-      filename: '[name].[chunkhash:8].js'
+      filename: '[name].[chunkhash:6].js'
     },
     module: {
       rules: [{
@@ -83,7 +86,7 @@ if (isDev) {
         })
       }]
     },
-    plugins: defaultPluins.concat([
+    plugins: defaultPlugins.concat([
       new ExtractPlugin('styles.[contentHash:8].css'),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
