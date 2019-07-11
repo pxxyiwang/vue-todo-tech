@@ -49,7 +49,7 @@ let config = merge(baseConfig, {
   // 可以指定(import vue form 'vue')导入的文件来自哪里！
   resolve: {
     alias: {
-      'vue': path.join(__dirname, '../node_modules/vue/dist/vue.esm.js')
+      'vue': path.join(__dirname, '../node_modules/vue/public/vue.esm.js')
     }
   },
   plugins: defaultPluins.concat([

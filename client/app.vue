@@ -2,20 +2,23 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
-    <span>count:{{count}}</span>
-    <span>text_a:{{text_a}}</span>
-    <span>text_b:{{text_b}}</span>
-    <span>{{fullName}}</span>
+    <!-- <span>count: {{count}}</span><br>
+    <span>text_a: {{text_a}}</span><br>
+    <span>text_b: {{text_b}}</span><br>
+    <span>fullName: {{fullName}}</span><br>
+    <span>textPlus: {{textPlus}}</span><br> -->
     <!-- <todo></todo> -->
     <!-- <router-view /> -->
     <!-- <router-link :to="{name: 'app'}">app</router-link> -->
     <!-- 传参方式的路由 类似于query -->
-    <router-link to="/app/123">app</router-link>
-    <router-link to="/login">login</router-link>
+    <!-- <router-link to="/app/123">app</router-link> -->
+    <!-- <router-link to="/app">app</router-link>
+    <router-link to="/login">login</router-link> -->
     <transition name="fade"> 
       <router-view />
     </transition>
     <!-- <router-view name="a" /> -->
+    <notification content="test notify" />
     <Footer></Footer>
   </div>
 </template>
@@ -33,21 +36,24 @@ import {
   mapMutations
 } from 'vuex'
 
-console.log(Header.__docs)
+// console.log(Header.__docs)
 
 export default {
+  metaInfo: {
+    title: 'this is Todo App'
+  },
   components: {
     Header,
     Footer
     // Todo
   },
   mounted () {
-    console.log(this.$route)
-    console.log(this.$store)
-    // let i = 0
-    // setInterval(() => {
-    //   this.$store.commit('updateCount', i++)
-    // }, 1000)
+    // console.log(this.$route)
+    // console.log(this.$store, this['a/textPlus'])
+    /* let i = 0
+    setInterval(() => {
+      this.$store.commit('updateCount', i++)
+    }, 1000) */
     // 使用...mapMutations
     // setInterval(() => {
     //   this.updateCount(i++)
@@ -59,11 +65,13 @@ export default {
     this.updateCountAsync({num: 5, time: 2000})
 
     // store模块化调用
+    console.log('hahah=' + this.textPlus)
     this['a/updateText']('88')
     this['b/updateText'](99)
+    this['a/app']()
   },
   methods: {
-    ...mapActions(['updateCountAsync']),
+    ...mapActions(['updateCountAsync', 'a/app']),
     ...mapMutations(['updateCount', 'a/updateText', 'b/updateText'])
   },
   /* count () {
@@ -87,7 +95,12 @@ export default {
     // count () {
     //   return this.$store.state.count
     // },
-    ...mapGetters(['fullName'])
+    // ...mapGetters(['fullName', 'a/textPlus']) // 可用通过this.方法名调用 console.log(this['a/textPlus'])
+    // 在页面直接调用渲染方式  这种方式可以在页面中直接这样调用{{textPlus}}
+    ...mapGetters({
+      'fullName': 'fullName',
+      textPlus: 'a/textPlus'
+    })
     // fullName () {
     //   return this.$store.getters.fullName
     // }

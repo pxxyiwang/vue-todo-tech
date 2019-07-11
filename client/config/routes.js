@@ -7,8 +7,8 @@ export default [
     redirect: '/app'
   },
   {
-    // path: '/app',
-    path: '/app/:id',
+    path: '/app',
+    // path: '/app/:id',
     // props方式的传值：Todo页面可以i通过props这个属性接收路由传的值，不需要在通过this.$route这种方式获取url中的值，能是页面之间没那么多耦合。以下三种方式都支持
     props: true,
     // props: {

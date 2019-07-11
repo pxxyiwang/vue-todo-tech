@@ -28,6 +28,9 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+  metaInfo: {
+    title: 'The Todo App'
+  },
   // 在组件渲染之前执行，所有这里拿不到组件的全局上下文（this）。在beforeEach和beforeResolve之间执行
   beforeRouteEnter (to, from, next) {
     console.log('todo before enter', this)

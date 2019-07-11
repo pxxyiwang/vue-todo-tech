@@ -26,4 +26,4 @@
 // import './component/features'
 
 // vue组件的render方法
-import './component/render'
+// import './component/render'
