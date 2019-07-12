@@ -18,7 +18,7 @@
       <router-view />
     </transition>
     <!-- <router-view name="a" /> -->
-    <notification content="test notify" />
+    <!-- <notification content="test notify" /> -->
     <Footer></Footer>
   </div>
 </template>
@@ -48,6 +48,10 @@ export default {
     // Todo
   },
   mounted () {
+    this.$notify({
+      content: 'test $notify',
+      btn: 'close'
+    })
     // console.log(this.$route)
     // console.log(this.$store, this['a/textPlus'])
     /* let i = 0
