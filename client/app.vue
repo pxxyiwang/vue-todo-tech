@@ -19,6 +19,7 @@
     </transition>
     <!-- <router-view name="a" /> -->
     <!-- <notification content="test notify" /> -->
+    <button @click="notify">点击一下</button>
     <Footer></Footer>
   </div>
 </template>
@@ -48,10 +49,6 @@ export default {
     // Todo
   },
   mounted () {
-    this.$notify({
-      content: 'test $notify',
-      btn: 'close'
-    })
     // console.log(this.$route)
     // console.log(this.$store, this['a/textPlus'])
     /* let i = 0
@@ -76,7 +73,13 @@ export default {
   },
   methods: {
     ...mapActions(['updateCountAsync', 'a/app']),
-    ...mapMutations(['updateCount', 'a/updateText', 'b/updateText'])
+    ...mapMutations(['updateCount', 'a/updateText', 'b/updateText']),
+    notify () {
+      this.$notify({
+        content: 'test $notify',
+        btn: 'close'
+      })
+    }
   },
   /* count () {
       return this.$store.state.count

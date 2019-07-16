@@ -1,6 +1,12 @@
 <template>
-  <transition name="fade">
-    <div class="notification" :style="style">
+  <transition name="fade" @after-leave="afterLeave" @after-enter="afterEnter">
+    <div
+     class="notification" 
+     :style="style" 
+     v-show="visible"
+     @mouseenter="clearTimer"
+     @mouseleave="createTimer"
+     >
       <span class="content">{{content}}</span>
       <a class="btn" @click='handleClose'>{{btn}}</a>
   </div>
@@ -20,6 +26,11 @@ export default {
       default: '关闭'
     }
   },
+  data () {
+    return {
+      visible: true
+    }
+  },
   computed: {
     style () {
       return {}
@@ -29,7 +40,14 @@ export default {
     handleClose (e) {
       e.preventDefault() // 把元素的默认事件注释掉
       this.$emit('close')
-    }
+    },
+    // transtion动画执行完毕后执行的函数
+    afterLeave () {
+      this.$emit('closed')
+    },
+    afterEnter () {},
+    createTimer () {},
+    clearTimer () {}
   }
 }
 </script>
@@ -50,6 +68,7 @@ export default {
     padding: 0
   .btn
     color: #ff4081
-    padding-left: 50px
+    padding-left: 24px
+    margin-left: auto
     cursor: pointer
 </style>

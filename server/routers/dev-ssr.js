@@ -11,6 +11,7 @@ const serverRender = require('./server-render')
 const serverConfig = require('../../build/webpack.config.server')
 
 const serverCompiler = webpack(serverConfig)
+
 const mfs = new MemoryFS()
 serverCompiler.outputFileSystem = mfs
 

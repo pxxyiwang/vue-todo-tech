@@ -26,6 +26,7 @@ const devServer = {
   overlay: {
     errors: true
   },
+  headers: { 'Access-Control-Allow-Origin': '*' },
   historyApiFallback: {
     index: '/public/index.html'
   },
@@ -54,7 +55,7 @@ if (isDev) {
       }]
     },
     // eslint-disable-next-line no-dupe-keys
-    devtool: '#cheap-module-eval-source-map',
+    // devtool: '#cheap-module-eval-source-map',
     devServer,
     plugins: defaultPlugins.concat([
       new webpack.HotModuleReplacementPlugin(),

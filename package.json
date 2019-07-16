@@ -15,7 +15,7 @@
     "precommit": "yarn run lint-fix",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
     "dev:server": "nodemon server/server.js",
-    "dev": "concurrently \"yarn run dev:server\" \"yarn run dev:client\"",
+    "dev": "concurrently \"yarn run dev:client\" \"yarn run dev:server\"",
     "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "author": "",
