@@ -1,5 +1,10 @@
 <template>
   <section class="real-app">
+    <div class="tab-container">
+      <tabs :value="filter" @change="handleChangeTab">
+        <tab :label="tab" :index="tab" v-for="tab in states" :key="tab" />
+      </tabs>
+    </div>
     <input
       type="text"
       class="add-input"
@@ -13,10 +18,9 @@
       :key="todo.id"
       @del="deleteTodo"
     />
-    <tabs
+    <helper
       :filter="filter"
       :todos="todos"
-      @toggle="toggleFilter"
       @clearAllCompleted="clearAllCompleted"
     />
     <router-view></router-view>
@@ -25,7 +29,7 @@
 
 <script>
 import Item from './item.vue'
-import Tabs from './tabs.vue'
+import Helper from './helper.vue'
 let id = 0
 export default {
   metaInfo: {
@@ -55,7 +59,9 @@ export default {
   data () {
     return {
       todos: [],
-      filter: 'all'
+      filter: 'all',
+      tabContent: '',
+      states: ['all', 'active', 'completed']
     }
   },
   // 在组件跳转的时候，跳转的是同一组件的情况下，mounted方法方法是不会从新执行的，如果要监听数据的变化，只能通过watch或者boeforeRouteUpdate监听。（例如：通过/app/：id这样的方法的组件）
@@ -64,7 +70,7 @@ export default {
   },
   components: {
     Item,
-    Tabs
+    Helper
   },
   computed: {
     filteredTodos () {
@@ -82,16 +88,18 @@ export default {
         content: e.target.value.trim(),
         completed: false
       })
+      console.log('e.target.value:')
+      console.log(e.target.value)
       e.target.value = ''
     },
     deleteTodo (id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
     },
-    toggleFilter (state) {
-      this.filter = state
-    },
     clearAllCompleted () {
       this.todos = this.todos.filter(todo => !todo.completed)
+    },
+    handleChangeTab (value) {
+      this.filter = value
     }
   },
   created () {
@@ -125,6 +133,7 @@ export default {
   border: none;
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
 }
+.tab-container
+  background-color: #fff
+  padding: 0 15px
 </style>
-
-
